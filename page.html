@@ -4,115 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Ajou Bulletin Board</title>
-    <style>
-        a {
-            text-decoration: none;
-        }
-        
-        .menu-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #045D8B;
-            height: 40px;
-        }
-        
-        .menu-bar a {
-            padding: 10px;
-            color: white;
-        }
-        
-        .create-post {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: stretch;
-            border: solid #045D8B;
-            height: 500px;
-            margin: 20px;
-        }
-        
-        .writing {
-            display: flex;
-            flex-direction: row-reverse;
-            margin: 20px;
-        }
-        
-        .writing input {
-            border: solid #045D8B;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="page.css" />
 </head>
 
 <body>
     <div class="menu-bar">
-        <a href="슬라이딩 메뉴"><img src="menu_button.svg" width="15px" height="15px"></a>
-        <a href="자유게시판 메인">Ajou Memo</a>
-        <a href="로그인 화면">Log in</a>
+        <div class="sliding-menu-button"><img src="menu_button.svg" width="15px" height="15px"></div>
+        <div>Ajou Memo</div>
+        <div>Log in</div>
     </div>
 
-    <!--
-    <div class="create-post">
-        <select name="게시판을 선택해 주세요" style="height:40px">
-            <option>자유 게시판</option>
-            <option>비밀 게시판</option>
-            <option>정보 게시판</option>
-            <option>홍보 게시판</option>
-            <option>SW 게시판</option>
-        </select>
-        <input type="text" name="title" placeholder="제목을 입력해 주세요" style="height:40px">
-        <input type="text" name="content" placeholder="내용" style="height:400px">
-    </div>
-
-    <div class="writing">
-        <input type="button" value="글쓰기">
-    </div>
-    -->
-
-    <script>
-        let category = ['자유 게시판', '비밀 게시판', '정보 게시판', '홍보 게시판', 'Sw 게시판']
-
-        //게시글 생성 페이지 생성
-        let $createPost = document.createElement('div');
-        $createPost.setAttribute('class', 'create-post');
-        document.body.appendChild($createPost);
-
-        //게시판 선택
-        let $select = document.createElement('select');
-        $select.setAttribute('name', '게시판을 선택해 주세요');
-        $select.setAttribute('style', 'height:40px');
-        $createPost.appendChild($select);
-        category.forEach((element) => {
-            let i = document.createElement('option');
-            i.textContent = element;
-            $select.appendChild(i);
-        })
-
-        //제목칸
-        let $title = document.createElement('input');
-        $title.setAttribute('type', 'text');
-        $title.setAttribute('placeholder', '제목을 입력해 주세요');
-        $title.setAttribute('style', 'height:40px');
-        $createPost.appendChild($title);
-
-        //내용칸
-        let $content = document.createElement('input');
-        $content.setAttribute('type', 'text');
-        $content.setAttribute('placeholder', '내용');
-        $content.setAttribute('style', 'height:400px');
-        $createPost.appendChild($content);
-
-        //'글쓰기' 버튼
-        let $writing = document.createElement('div');
-        $writing.setAttribute('class', 'writing');
-        document.body.appendChild($writing);
-
-        let $writeButton = document.createElement('input');
-        $writeButton.setAttribute('type', 'button');
-        $writeButton.setAttribute('value', '글쓰기');
-        $writing.appendChild($writeButton);
-    </script>
+    <script type="text/javascript" src="page.js"></script>
 </body>
 
 </html>
