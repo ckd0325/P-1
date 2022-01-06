@@ -1,0 +1,55 @@
+a {
+    text-decoration: none;
+}
+
+.menu-bar {
+    z-index: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #045D8B;
+    height: 40px;
+}
+
+.menu-bar div {
+    padding: 10px;
+    color: white;
+}
+
+
+/*게시글 작성 페이지*/
+
+.create-post {
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    border: solid #045D8B;
+    height: 500px;
+    margin: 20px;
+}
+
+.writing {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 20px;
+}
+
+.writing input {
+    border: solid #045D8B;
+    border-radius: 5px;
+}
+
+
+/*슬라이딩 메뉴*/
+
+.sliding-menu {
+    z-index: 1;
+    position: relative;
+    float: left;
+    height: 500px;
+    width: 200px;
+    background: #CFDAFF;
+    display: none;
+}

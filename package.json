@@ -1,0 +1,24 @@
+{
+    "name": "p-1",
+    "version": "1.0.0",
+    "description": "<div align=center>",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ckd0325/P-1.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ckd0325/P-1/issues"
+    },
+    "homepage": "https://github.com/ckd0325/P-1#readme",
+    "dependencies": {
+        "axios": "^0.24.0",
+        "express": "^4.17.2"
+    }
+}
