@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
     console.log("success");
-    res.sendFile(path.resolve("front_end", "page.html"));
+    res.sendFile(path.resolve("front_end", "index.html"));
 });
 
 app.post('/write-post', (req, res) => {
