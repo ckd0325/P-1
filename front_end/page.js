@@ -3,6 +3,41 @@ let category = ['자유 게시판', '비밀 게시판', '정보 게시판', '홍
 let onSlidingMenu = 0;
 let currentBulletin = '자유 게시판';
 
+/***********************라우터 설정********************** */
+const router = async() => {
+    const routes = [
+        { path: "/", view: () => console.log("Viewing free-bulletin") },
+        { path: "/write-post", view: drawWritingPage },
+    ];
+
+    const pageMatches = routes.map((route) => {
+        return {
+            route,
+            isMatch: route.path === location.pathname,
+        };
+    });
+
+    let match = pageMatches.find((pageMatch) => pageMatch.isMatch);
+    console.log(pageMatches);
+    match.route.view();
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.body.addEventListener("click", (e) => {
+        if (e.target.matches("[data-link]")) {
+            history.pushState(null, null, e.target.dataset.link);
+            router();
+        }
+    });
+    router();
+});
+
+window.addEventListener("popstate", () => {
+    router();
+})
+
+
 /**************메뉴버튼 클릭시 게시글 목록 표시*************/
 const $slidingMenuButton = document.querySelector('.sliding-menu-button');
 document.body.innerHTML += `<div class="sliding-menu"></div>`;
@@ -31,6 +66,7 @@ document.querySelector('.sliding-menu-button').addEventListener("click", () => {
     }
 });
 
+/******************메인 페이지********************/
 
 /******************게시글 작성 페이지 생성********************/
 const drawWritingPage = () => {
@@ -43,22 +79,40 @@ const drawWritingPage = () => {
     $createPost.appendChild($select);
     category.forEach((element) => {
         let i = document.createElement('option');
+        i.setAttribute("value", element);
         i.textContent = element;
         $select.appendChild(i);
     })
 
     //제목칸
     $createPost.innerHTML += `<input id="title" type="text" placeholder="제목을 입력해 주세요" style="height:40px">`;
-    const $title = document.querySelector("#title")
 
     //내용칸
     $createPost.innerHTML += `<input id="content" type="text" placeholder="내용" style="height:400px">`;
-    const $content = document.querySelector("#content")
 
     //'글쓰기' 버튼
     document.body.innerHTML += `<div class="writing"></div>`
     const $writing = document.querySelector(".writing");
 
-    $writing.innerHTML += `<input type="button" value="글쓰기">`;
+    $writing.innerHTML += `<input type="button" value="작성">`;
     const $writeButton = document.querySelector(".writing input");
+
+    $writeButton.addEventListener("click", (e) => {
+        const select = $select.value;
+        const title = document.getElementById("title").value;
+        const content = document.getElementById("content").value;
+        console.log(select + title + content);
+
+        axios.post("/write-post", {
+                select: select,
+                title: title,
+                content: content,
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    })
 }
