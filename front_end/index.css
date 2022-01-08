@@ -53,3 +53,30 @@ a {
     background: #CFDAFF;
     display: none;
 }
+
+
+/*로그인 & 회원가입 페이지*/
+
+.login-signup-box {
+    z-index: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+#write-id {
+    width: 500px;
+    margin: 30px;
+    text-align: center;
+    border: solid #045D8B;
+}
+
+.blue-button {
+    width: 200px;
+    height: 40px;
+    margin: 10px;
+}
