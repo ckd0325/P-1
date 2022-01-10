@@ -5,7 +5,8 @@
     "main": "server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server.js"
+        "start": "node server.js",
+        "start:dev": "nodemon --watch server.js"
     },
     "repository": {
         "type": "git",
@@ -19,6 +20,8 @@
     "homepage": "https://github.com/ckd0325/P-1#readme",
     "dependencies": {
         "axios": "^0.24.0",
-        "express": "^4.17.2"
+        "express": "^4.17.2",
+        "mysql": "^2.18.1",
+        "nodemon": "^2.0.15"
     }
 }

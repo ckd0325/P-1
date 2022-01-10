@@ -28,28 +28,32 @@ export default function drawWritingPage() {
     $createPost.innerHTML += `<input id="content" type="text" placeholder="내용" style="height:400px">`;
 
     //'글쓰기' 버튼
-    $rootContent.innerHTML += `<div class="writing"></div>`
+    $createPost.innerHTML += `<div class="writing"></div>`
     const $writing = document.querySelector(".writing");
 
     $writing.innerHTML += `<input type="button" value="작성">`;
     const $writeButton = document.querySelector(".writing input");
 
-    $writeButton.addEventListener("click", (e) => {
-        const select = $select.value;
-        const title = document.getElementById("title").value;
-        const content = document.getElementById("content").value;
-        console.log(select + title + content);
+    $writeButton.addEventListener("click", () => {
+        sendPostInfo($select.value, document.getElementById("title").value, document.getElementById("content").value)
+    });
+}
 
-        axios.post("/write-post", {
-                select: select,
-                title: title,
-                content: content,
-            })
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    })
+function sendPostInfo(selectValue, titleValue, contentValue) {
+    const select = selectValue;
+    const title = titleValue;
+    const content = contentValue;
+    console.log("게시글 전송: " + select + title + content);
+
+    axios.post("/write-post", {
+            select: select,
+            title: title,
+            content: content,
+        })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 }
