@@ -1,4 +1,4 @@
-import drawMainPage from "./pages/main-page.js";
+import drawFreeBulletinPage from "./pages/free-bulletin-page.js";
 import drawWritingPage from "./pages/write-post-page.js"
 import drawLoginPage from "./pages/login-page.js"
 import drawSignUpPage from "./pages/sign-up-page.js";
@@ -11,7 +11,8 @@ let currentBulletin = '자유 게시판';
 /***********************라우터 설정********************** */
 const router = async() => {
     const routes = [
-        { path: "/", view: drawMainPage },
+        { path: "/", view: () => console.log("main page") },
+        { path: "/free-bulletin", view: drawFreeBulletinPage },
         { path: "/write-post", view: drawWritingPage },
         { path: "/login", view: drawLoginPage },
         { path: "/sign-up", view: drawSignUpPage },

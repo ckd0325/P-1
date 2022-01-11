@@ -1,4 +1,4 @@
-export default function drawMainPage() {
+export default function drawFreeBulletinPage() {
     const $rootContent = document.querySelector(".root-content");
     while ($rootContent.hasChildNodes()) {
         $rootContent.removeChild($rootContent.firstChild);
