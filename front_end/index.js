@@ -1,21 +1,27 @@
-import drawFreeBulletinPage from "./pages/free-bulletin-page.js";
+import drawBulletinPage from "./pages/bulletin-page.js";
 import drawWritingPage from "./pages/write-post-page.js"
 import drawLoginPage from "./pages/login-page.js"
 import drawSignUpPage from "./pages/sign-up-page.js";
 
-export let category = ['자유 게시판', '비밀 게시판', '정보 게시판', '홍보 게시판', 'Sw 게시판']
+export let currentBulletin = '자유 게시판';
+export const category = ['자유 게시판', '비밀 게시판', '정보 게시판', '홍보 게시판', 'Sw 게시판']
+
+const categoryUrl = ['free-bulletin', 'secret-bulletin', 'information-bulletin', 'promotion-bulletin', 'sw-bulletin']
 
 let onSlidingMenu = 0;
-let currentBulletin = '자유 게시판';
 
 /***********************라우터 설정********************** */
 const router = async() => {
     const routes = [
         { path: "/", view: () => console.log("main page") },
-        { path: "/free-bulletin", view: drawFreeBulletinPage },
         { path: "/write-post", view: drawWritingPage },
         { path: "/login", view: drawLoginPage },
         { path: "/sign-up", view: drawSignUpPage },
+        { path: "/free-bulletin", view: drawBulletinPage },
+        { path: "/secret-bulletin", view: drawBulletinPage },
+        { path: "/information-bulletin", view: drawBulletinPage },
+        { path: "/promotion-bulletin", view: drawBulletinPage },
+        { path: "/sw-bulletin", view: drawBulletinPage },
     ];
 
     const pageMatches = routes.map((route) => {
@@ -43,37 +49,21 @@ document.addEventListener("DOMContentLoaded", () => {
     router();
 });
 
-/*****************Ajou Memo 클릭 시 이동********************/
-/*
-document.getElementById("main-button").addEventListener("click", (e) => {
-    history.pushState(null, null, location.origin);
-    router();
-})
-*/
-
-/*****************Log in 클릭 시 이동**********************/
-/*
-document.getElementById("login-button").addEventListener("click", (e) => {
-    history.pushState(null, null, e.target.dataset.link);
-    router();
-})
-
-
+/**************'뒤로 가기' 클릭 시**************/
 window.addEventListener("popstate", () => {
     router();
 })
-*/
 
 
-/**************메뉴버튼 클릭시 게시글 목록 표시*************/
+/**************메뉴버튼 클릭시 게시판 목록 표시*************/
 const $slidingMenuButton = document.getElementById('sliding-menu-button');
 document.body.innerHTML += `<div class="sliding-menu"></div>`;
 const $slidingMenu = document.querySelector('.sliding-menu');
 $slidingMenu.innerHTML += `<ul></ul>`
 const $bulletinList = document.querySelector('.sliding-menu ul');
-category.forEach((element) => {
-    $bulletinList.innerHTML += `<li>${element}</li>`;
-});
+for (let i = 0; i < 5; i++) {
+    $bulletinList.innerHTML += `<li data-link="${categoryUrl[i]}">${category[i]}</li>`;
+}
 const bulletinList = document.querySelector(".sliding-menu ul");
 bulletinList.addEventListener("click", (event) => {
     currentBulletin = event.target.textContent;
