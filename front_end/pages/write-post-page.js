@@ -1,4 +1,4 @@
-import { category } from "../index.js";
+import { category, categoryUrl } from "../index.js";
 
 /******************게시글 작성 페이지 생성********************/
 export default function drawWritingPage() {
@@ -11,7 +11,7 @@ export default function drawWritingPage() {
     const $createPost = document.querySelector(".create-post");
 
     //게시판 선택
-    $createPost.innerHTML += `<select name="게시판을 선택해 주세요" style="height:40px"></select>`;
+    $createPost.innerHTML += `<select id="select-category" name="게시판을 선택해 주세요" style="height:40px"></select>`;
     const $select = document.querySelector(".create-post select");
     $createPost.appendChild($select);
     category.forEach((element) => {
@@ -35,18 +35,23 @@ export default function drawWritingPage() {
     const $writeButton = document.querySelector(".writing input");
 
     $writeButton.addEventListener("click", () => {
-        sendPostInfo($select.value, document.getElementById("title").value, document.getElementById("content").value)
+        sendPostInfo(document.getElementById("title").value, document.getElementById("content").value)
     });
 }
 
-function sendPostInfo(selectValue, titleValue, contentValue) {
-    const select = selectValue;
+function sendPostInfo(titleValue, contentValue) {
+    const now = new Date();
+    const $category = document.getElementById("select-category");
     const title = titleValue;
     const content = contentValue;
-    console.log("게시글 전송: " + select + title + content);
+    const date = `${now.getMonth()+1} / ${now.getDate()}`;
+
+    const selectedCategory = $category.options[$category.options.selectedIndex].value;
+    console.log(`게시글 전송\n날짜: ${date}\n게시판: ${selectedCategory}\n제목: ${title}\n내용: ${content}`);
 
     axios.post("/write-post", {
-            select: select,
+            date: date,
+            select: selectedCategory,
             title: title,
             content: content,
         })

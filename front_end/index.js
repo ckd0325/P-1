@@ -6,7 +6,7 @@ import drawSignUpPage from "./pages/sign-up-page.js";
 export let currentBulletin = '자유 게시판';
 export const category = ['자유 게시판', '비밀 게시판', '정보 게시판', '홍보 게시판', 'Sw 게시판']
 
-const categoryUrl = ['free-bulletin', 'secret-bulletin', 'information-bulletin', 'promotion-bulletin', 'sw-bulletin']
+export const categoryUrl = ['free-bulletin', 'secret-bulletin', 'information-bulletin', 'promotion-bulletin', 'sw-bulletin']
 
 let onSlidingMenu = 0;
 
