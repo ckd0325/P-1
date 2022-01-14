@@ -1,3 +1,5 @@
+export let id;
+
 export default function drawLoginPage() {
     const $rootContent = document.querySelector(".root-content");
     while ($rootContent.hasChildNodes()) {
@@ -17,7 +19,7 @@ export default function drawLoginPage() {
 }
 
 const login = async(userId) => {
-    const id = userId;
+    id = userId;
     let result;
     console.log(`입력한 ID: ${id}`);
     try {

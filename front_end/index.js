@@ -3,7 +3,7 @@ import drawWritingPage from "./pages/write-post-page.js"
 import drawLoginPage from "./pages/login-page.js"
 import drawSignUpPage from "./pages/sign-up-page.js";
 
-export let currentBulletin = '자유 게시판';
+export let currentBulletin = 'free-bulletin';
 export const category = ['자유 게시판', '비밀 게시판', '정보 게시판', '홍보 게시판', 'Sw 게시판']
 
 export const categoryUrl = ['free-bulletin', 'secret-bulletin', 'information-bulletin', 'promotion-bulletin', 'sw-bulletin']
@@ -66,7 +66,7 @@ for (let i = 0; i < 5; i++) {
 }
 const bulletinList = document.querySelector(".sliding-menu ul");
 bulletinList.addEventListener("click", (event) => {
-    currentBulletin = event.target.textContent;
+    currentBulletin = event.target.dataset.link;
     console.log(currentBulletin);
 })
 

@@ -7,6 +7,7 @@ const app = express();
 const con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
+    port: '3306',
     password: '525252',
     database: 'ajou_bulletin',
 })
@@ -22,6 +23,36 @@ app.use(express.json());
 app.get("/", (req, res) => {
     console.log("success");
     res.sendFile(path.resolve("front_end", "index.html"));
+});
+
+app.get('/post-number/:category', (req, res) => { // 현재 게시판 게시글 개수 전송
+    const category = req.params.category;
+    let requiredDB;
+
+    if (category === 'free-bulletin') {
+        requiredDB = 'free_bulletin';
+    } else if (category === 'secret-bulletin') {
+        requiredDB = 'secret_bulletin';
+    } else if (category === 'information-bulletin') {
+        requiredDB = 'information_bulletin';
+    } else if (category === 'promotion-bulletin') {
+        requiredDB = 'promotion_bulletin';
+    } else {
+        requiredDB = 'sw_bulletin';
+    }
+
+    con.query(`SELECT count(*) as count FROM ${requiredDB};`,
+        (err, result) => {
+            if (err) throw err;
+
+            console.log(result);
+            res.send(result);
+        })
+})
+
+app.get('/bulletin-list/:page', (req, res) => { //페이지에 해당하는 게시글 정보 전송
+    const pageNum = req.params.page;
+    console.log(pageNum);
 });
 
 app.post('/write-post', (req, res) => { //글쓰기 했을 때 DB에 기록
