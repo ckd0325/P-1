@@ -50,10 +50,46 @@ app.get('/post-number/:category', (req, res) => { // 현재 게시판 게시글 
         })
 })
 
-app.get('/bulletin-list/:page', (req, res) => { //페이지에 해당하는 게시글 정보 전송
+app.get('/bulletin-list/:currentBulletin/:numOfPage/:numOfPost/:page', (req, res) => { //페이지에 해당하는 게시글 정보 전송
+    const numOfPage = req.params.numOfPage;
+    const numOfPost = req.params.numOfPost;
     const pageNum = req.params.page;
-    console.log(pageNum);
+    let pageSize = 6;
+    const currentBulletin = req.params.currentBulletin;
+    let currentDB;
+    console.log(`${numOfPage}  ${numOfPost}  ${pageNum}`);
+
+    let offset = (numOfPage - pageNum - 1) * pageSize + (numOfPost % pageSize);
+
+    if (numOfPage === pageNum) {
+        offset = 0;
+        pageSize = numOfPost % pageSize;
+    }
+
+    currentDB = decideDB(currentBulletin);
+
+    console.log(`${offset}   ${currentBulletin}`);
+    con.query(`SELECT * FROM ${currentDB} LIMIT ${offset}, ${pageSize};`,
+        (err, result) => {
+            if (err) throw err;
+
+            res.send(result);
+        })
 });
+
+app.get('/post/:bulletin/:num', (req, res) => { // 게시글 제목 클릭 시 해당 게시글 정보 전송
+    const bulletinName = req.params.bulletin;
+    const postNum = req.params.num;
+    const currentDB = decideDB(bulletinName);
+
+    con.query(`SELECT * FROM ${currentDB} WHERE post_number=${postNum};`,
+        (err, result) => {
+            if (err) throw err;
+
+            console.log(result);
+            res.send(result);
+        })
+})
 
 app.post('/write-post', (req, res) => { //글쓰기 했을 때 DB에 기록
     const date = req.body.date;
@@ -108,3 +144,17 @@ app.post('/login', (req, res) => { //로그인 처리
 });
 
 app.listen(process.env.PORT || 8080, () => console.log("Server runing ..."));
+
+function decideDB(bulletinName) {
+    if (bulletinName === 'free-bulletin') {
+        return 'free_bulletin';
+    } else if (bulletinName === 'secret-bulletin') {
+        return 'secret_bulletin';
+    } else if (bulletinName === 'information-bulletin') {
+        return 'information_bulletin';
+    } else if (bulletinName === 'promotion-bulletin') {
+        return 'promotion_bulletin';
+    } else {
+        return 'sw_bulletin';
+    }
+}

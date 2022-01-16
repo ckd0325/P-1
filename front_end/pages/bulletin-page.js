@@ -1,8 +1,9 @@
 import { currentBulletin } from "../index.js";
+import { id } from "./login-page.js";
 
-let currentPage = 1;
+export let postNum;
 let numOfPost; // 게시글의 개수
-let pageSize = 6; // 한 페이지에 띄울 수 있는 최대 게시글 수
+const pageSize = 6; // 한 페이지에 띄울 수 있는 최대 게시글 수
 
 export default async function drawBulletinPage() {
     const $rootContent = document.querySelector(".root-content");
@@ -33,27 +34,46 @@ export default async function drawBulletinPage() {
     }
     console.log(numOfPost);
 
-    drawListAndPages($bulletinList, $bulletinListPages, currentPage, numOfPost);
+    drawListAndPages($bulletinListPages, numOfPost);
 }
 
-function drawListAndPages($bulletinList, $bulletinListPages, currentPage, numOfPost) {
+function drawListAndPages($bulletinListPages, numOfPost) {
     const numOfPage = Math.floor((numOfPost / pageSize) + 1); // 페이지 수
 
     for (let i = 0; i < numOfPage; i++) {
         $bulletinListPages.innerHTML += `<input class="page" type="button" value="${i+1}">`;
     }
 
+    drawList(numOfPage, 1);
+
     $bulletinListPages.addEventListener('click', (e) => {
         if (e.target.matches('.page')) {
-            drawBulletinList(Number(e.target.value));
+            drawList(numOfPage, Number(e.target.value));
         }
     })
 }
 
-async function drawBulletinList(page) {
+async function drawList(numOfPage, page) {
+    let response;
+
+    const $bulletinList = document.querySelector('.bulletin-list');
+    while ($bulletinList.hasChildNodes()) {
+        $bulletinList.removeChild($bulletinList.firstChild);
+    }
+
     try { //현재 페이지 번호 보낸 뒤에 게시글 정보 받기
-        const response = await axios.get(`bulletin-list/${page}`);
+        response = await axios.get(`bulletin-list/${currentBulletin}/${numOfPage}/${numOfPost}/${page}`);
     } catch (err) {
         console.log(err);
     }
+
+    response.data.reverse().forEach(ele => {
+        $bulletinList.innerHTML += `<tr><td>${ele.date}</td><td class="post" data-link="post" data-num="${ele.post_number}">${ele.title}</td><td>${id}</td></tr>`;
+    });
+
+    $bulletinList.addEventListener('click', (e) => {
+        if (e.target.matches('.post')) {
+            postNum = e.target.dataset.num;
+        }
+    })
 }

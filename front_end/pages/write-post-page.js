@@ -35,7 +35,8 @@ export default function drawWritingPage() {
     const $writeButton = document.querySelector(".writing input");
 
     $writeButton.addEventListener("click", () => {
-        sendPostInfo(document.getElementById("title").value, document.getElementById("content").value)
+        sendPostInfo(document.getElementById("title").value, document.getElementById("content").value);
+        history.back();
     });
 }
 

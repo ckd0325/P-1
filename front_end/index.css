@@ -13,6 +13,7 @@ a {
 .root-content {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 90%;
     flex-direction: column;
 }
@@ -160,4 +161,46 @@ ul li {
     color: white;
     background: darkgrey;
     margin: 10px;
+}
+
+.bulletin-list tr {
+    border: solid black;
+    color: black;
+}
+
+
+/*게시글 조회*/
+
+.post-box {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    height: 380px;
+    margin: 20px 5px 5px 5px;
+    border: solid #045D8B;
+}
+
+.bulletin-writer {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin-bottom: 10px;
+}
+
+.title {
+    width: 95%;
+    height: 30px;
+    border: solid gray;
+    margin-bottom: 10px;
+}
+
+.content {
+    width: 95%;
+    height: 250px;
+    border: solid gray;
+    margin-top: 10px;
 }

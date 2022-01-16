@@ -2,6 +2,7 @@ import drawBulletinPage from "./pages/bulletin-page.js";
 import drawWritingPage from "./pages/write-post-page.js"
 import drawLoginPage from "./pages/login-page.js"
 import drawSignUpPage from "./pages/sign-up-page.js";
+import drawPostPage from "./pages/post-page.js";
 
 export let currentBulletin = 'free-bulletin';
 export const category = ['자유 게시판', '비밀 게시판', '정보 게시판', '홍보 게시판', 'Sw 게시판']
@@ -22,6 +23,7 @@ const router = async() => {
         { path: "/information-bulletin", view: drawBulletinPage },
         { path: "/promotion-bulletin", view: drawBulletinPage },
         { path: "/sw-bulletin", view: drawBulletinPage },
+        { path: "/post", view: drawPostPage },
     ];
 
     const pageMatches = routes.map((route) => {
@@ -71,8 +73,9 @@ bulletinList.addEventListener("click", (event) => {
 })
 
 //$slidingMenu.setAttribute("style", "display:block;");
-document.getElementById('sliding-menu-button').addEventListener("click", () => {
-    console.log('clicked');
+document.getElementById('sliding-menu-button').addEventListener("click", toggleSlideMenu);
+
+function toggleSlideMenu() {
     if (onSlidingMenu === 0) {
         $slidingMenu.setAttribute("style", "display:block;");
         onSlidingMenu = 1;
@@ -80,4 +83,4 @@ document.getElementById('sliding-menu-button').addEventListener("click", () => {
         $slidingMenu.setAttribute("style", "display:none;");
         onSlidingMenu = 0;
     }
-});
+}

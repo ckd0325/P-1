@@ -1,4 +1,4 @@
-export let id;
+export let id = '익명';
 
 export default function drawLoginPage() {
     const $rootContent = document.querySelector(".root-content");
